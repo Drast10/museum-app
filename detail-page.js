@@ -1,5 +1,6 @@
 function submitComment(){
     console.log("Hello I am submit Comment function");
+
     const inputField = document.getElementById('name');
     // fetching the value from any field use value property 
     let name = inputField.value;
@@ -7,7 +8,11 @@ function submitComment(){
     const textArea = document.getElementById('msg');
     let msg = textArea.value;
     console.log(msg);
+    if(doesNotPassAllValidations(name , msg))return null;
    
+    if(!name.charAt(0).match(/^[A-Z]/)){
+      name= name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
     //create the elements using createElement()
     const comment = document.createElement('section');
     const h3 = document.createElement('h3');
@@ -27,21 +32,15 @@ function submitComment(){
     inputField.value = null;
     textArea.value = null;
 
-    if(doesNotPassAllValidations(name , msg))return null;
-    
-    
-
 }
 function doesNotPassAllValidations(name , msg){
     if (!name || !msg ){
-        alert("Name and Msg Should not be epmty!!")
-        return true;
+        alert("Name or Msg Should not be epmty!!")
+        return false;
     }
     if(!name) {alert('Name is empty');}
     if(!msg) {alert('Msg is empty');}
-    if(!name.match(/^[A-Z]/)){
-        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    }
+    
     if(msg.length > 100){
         alert("Your msg is not longer than 100 words...!!")
         return true;
@@ -391,7 +390,7 @@ function displayPaintings(){
         //append or put img tag into a tag
         alink.appendChild(images);
         //iterate one by one image
-       
+        images.src = paint[i].webImage.url;
         //redirect another page using eventlister
         images.addEventListener("click",myFunction);
         
@@ -410,10 +409,10 @@ function displayPaintings(){
    
 }
 
-displayPaintings();
+//displayPaintings();
 
 function myFunction(){
-    location.href = '/detail-page.html?';
+    location.href = 'detail-page.html';
    //let img =  document.getElementById("newImg").innerHTML = ;
 }
 
